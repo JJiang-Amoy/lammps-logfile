@@ -22,7 +22,7 @@ class File:
         if hasattr(ifile, "read"):
             self.logfile = ifile
         else:
-            self.logfile = open(ifile, 'r')
+            self.logfile = open(ifile, 'r',encoding='UTF-8')
         self.read_file_to_dict()
 
     def read_file_to_dict(self):
@@ -40,7 +40,7 @@ class File:
                 tmpString = ""
                 # Check wheter any of the thermo stop strigs are in the present line
                 while not sum([string in line for string in self.stop_thermo_strings]) >= 1:
-                    if "\n" in line:
+                    if (line[0]!="#" and "\n" in line): #add for n2p2
                         tmpString+=line
                     i+=1
                     if i<len(contents):
